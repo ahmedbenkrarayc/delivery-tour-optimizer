@@ -3,10 +3,7 @@ package com.deliverytouroptimizer.model;
 import com.deliverytouroptimizer.model.enums.DeliveryStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -38,7 +35,7 @@ public class Delivery {
     @Min(value = 0, message = "Volume must be zero or positive")
     private double volume;
 
-    private String preferredTimeSlot; // optional
+    private String preferredTimeSlot;
 
     @NotNull(message = "Delivery status is required")
     @Enumerated(EnumType.STRING)
@@ -47,4 +44,12 @@ public class Delivery {
     @ManyToOne
     @JoinColumn(name = "tour_id")
     private Tour tour;
+
+    @ManyToOne
+    @JoinColumn(name = "warehouse_id")
+    private Warehouse warehouse;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
 }
