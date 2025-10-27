@@ -3,8 +3,10 @@ package com.deliverytouroptimizer;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
+@ImportResource("classpath:applicationContext.xml")
 public class DeliveryTourOptimizerApplication {
 
 	public static void main(String[] args) {
