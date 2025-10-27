@@ -7,12 +7,9 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface DeliveryMapper {
 
-    @Mapping(source = "warehouse.id", target = "warehouseId")
-    @Mapping(source = "vehicle.id", target = "vehicleId")
-    DeliveryDTO toDTO(Delivery entity);
+    @Mapping(source = "tour.id", target = "tourId")
+    DeliveryDTO toDTO(Delivery delivery);
 
-    @InheritInverseConfiguration
-    @Mapping(target = "warehouse", ignore = true)
-    @Mapping(target = "vehicle", ignore = true)
+    @Mapping(target = "tour", ignore = true)
     Delivery toEntity(DeliveryDTO dto);
 }
