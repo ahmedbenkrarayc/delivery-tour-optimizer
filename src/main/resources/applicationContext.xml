@@ -18,4 +18,23 @@
     <context:component-scan base-package="com.deliverytouroptimizer"/>
 
     <jpa:repositories base-package="com.deliverytouroptimizer.repository"/>
+
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- Transaction Template -->
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <bean id="deliveryMapper" class="com.deliverytouroptimizer.mapper.DeliveryMapper"/>
+
+    <bean id="deliveryService" class="com.deliverytouroptimizer.service.impl.DeliveryServiceImpl">
+        <constructor-arg ref="deliveryRepository"/>
+        <constructor-arg ref="tourRepository"/>
+        <constructor-arg ref="deliveryMapper"/>
+        <constructor-arg ref="transactionTemplate"/>
+    </bean>
 </beans>
