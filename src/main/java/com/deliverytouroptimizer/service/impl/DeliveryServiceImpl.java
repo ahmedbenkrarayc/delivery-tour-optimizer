@@ -4,6 +4,7 @@ import com.deliverytouroptimizer.dto.DeliveryDTO;
 import com.deliverytouroptimizer.exception.ResourceNotFoundException;
 import com.deliverytouroptimizer.mapper.DeliveryMapper;
 import com.deliverytouroptimizer.model.Delivery;
+import com.deliverytouroptimizer.model.enums.DeliveryStatus;
 import com.deliverytouroptimizer.repository.DeliveryRepository;
 import com.deliverytouroptimizer.repository.TourRepository;
 import com.deliverytouroptimizer.service.DeliveryService;
@@ -85,5 +86,22 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .stream()
                 .map(deliveryMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DeliveryDTO updateStatus(Long id, DeliveryStatus newStatus) {
+        return transactionTemplate.execute(status -> {
+            Delivery delivery = deliveryRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Delivery not found with id: " + id));
+
+            // Cannot move from DELIVERED or FAILED to something else
+            if (delivery.getStatus() == DeliveryStatus.DELIVERED || delivery.getStatus() == DeliveryStatus.FAILED) {
+                throw new IllegalStateException("Cannot change status after delivery is completed or failed.");
+            }
+
+            delivery.setStatus(newStatus);
+            Delivery updated = deliveryRepository.save(delivery);
+            return deliveryMapper.toDTO(updated);
+        });
     }
 }
