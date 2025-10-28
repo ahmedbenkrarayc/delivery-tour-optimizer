@@ -37,4 +37,11 @@
         <constructor-arg ref="deliveryMapper"/>
         <constructor-arg ref="transactionTemplate"/>
     </bean>
+
+    <bean id="vehicleMapper" class="com.deliverytouroptimizer.mapper.VehicleMapper"/>
+
+    <bean id="tourService" class="com.deliverytouroptimizer.service.impl.VehicleServiceImpl">
+        <constructor-arg ref="tourRepository"/>
+        <constructor-arg ref="transactionTemplate"/>
+    </bean>
 </beans>
