@@ -1,7 +1,9 @@
 package com.deliverytouroptimizer.controller;
 
 import com.deliverytouroptimizer.dto.DeliveryDTO;
+import com.deliverytouroptimizer.dto.DeliveryStatusUpdateDTO;
 import com.deliverytouroptimizer.service.DeliveryService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +20,13 @@ public class DeliveryController {
     }
 
     @PostMapping
-    public ResponseEntity<DeliveryDTO> createDelivery(@RequestBody DeliveryDTO dto) {
+    public ResponseEntity<DeliveryDTO> createDelivery(@Valid @RequestBody DeliveryDTO dto) {
         DeliveryDTO created = deliveryService.create(dto);
         return ResponseEntity.ok(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DeliveryDTO> updateDelivery(@PathVariable Long id, @RequestBody DeliveryDTO dto) {
+    public ResponseEntity<DeliveryDTO> updateDelivery(@PathVariable Long id, @Valid @RequestBody DeliveryDTO dto) {
         DeliveryDTO updated = deliveryService.update(id, dto);
         return ResponseEntity.ok(updated);
     }
@@ -45,5 +47,14 @@ public class DeliveryController {
     public ResponseEntity<List<DeliveryDTO>> getAllDeliveries() {
         List<DeliveryDTO> deliveries = deliveryService.getAll();
         return ResponseEntity.ok(deliveries);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<DeliveryDTO> updateDeliveryStatus(
+            @PathVariable Long id,
+            @Valid @RequestBody DeliveryStatusUpdateDTO statusUpdateDTO) {
+
+        DeliveryDTO updated = deliveryService.updateStatus(id, statusUpdateDTO.getStatus());
+        return ResponseEntity.ok(updated);
     }
 }
