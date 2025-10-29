@@ -34,7 +34,4 @@ public class Vehicle {
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     private List<Tour> tours;
-
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
-    private List<Delivery> deliveries;
 }

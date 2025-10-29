@@ -44,12 +44,4 @@ public class Delivery {
     @ManyToOne
     @JoinColumn(name = "tour_id")
     private Tour tour;
-
-    @ManyToOne
-    @JoinColumn(name = "warehouse_id")
-    private Warehouse warehouse;
-
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
 }

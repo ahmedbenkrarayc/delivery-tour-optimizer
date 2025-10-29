@@ -36,7 +36,4 @@ public class Warehouse {
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     private List<Tour> tours;
-
-    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
-    private List<Delivery> deliveries;
 }

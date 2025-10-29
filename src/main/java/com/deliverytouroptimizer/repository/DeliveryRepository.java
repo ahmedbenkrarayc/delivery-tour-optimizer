@@ -9,5 +9,4 @@ import java.util.List;
 
 public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
     List<Delivery> findByStatus(DeliveryStatus status);
-    List<Delivery> findByWarehouseId(Long warehouseId);
 }

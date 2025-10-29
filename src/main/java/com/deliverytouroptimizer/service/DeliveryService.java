@@ -14,4 +14,5 @@ public interface DeliveryService {
     DeliveryDTO getById(Long id);
     List<DeliveryDTO> getAll();
     DeliveryDTO updateStatus(Long id, DeliveryStatus newStatus);
+    DeliveryDTO assignToTour(Long deliveryId, Long tourId);
 }
