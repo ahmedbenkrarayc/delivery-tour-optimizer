@@ -56,4 +56,11 @@
         <constructor-arg ref="tourMapper"/>
         <constructor-arg ref="transactionTemplate"/>
     </bean>
+
+    <bean id="warehouseMapper" class="com.deliverytouroptimizer.mapper.WarehouseMapper"/>
+    <bean id="warehouseService" class="com.deliverytouroptimizer.service.impl.WarehouseServiceImpl">
+        <constructor-arg ref="warehouseRepository"/>
+        <constructor-arg ref="warehouseMapper"/>
+        <constructor-arg ref="transactionTemplate"/>
+    </bean>
 </beans>
