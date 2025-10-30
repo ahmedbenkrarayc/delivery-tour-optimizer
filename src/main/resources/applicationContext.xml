@@ -40,8 +40,20 @@
 
     <bean id="vehicleMapper" class="com.deliverytouroptimizer.mapper.VehicleMapper"/>
 
-    <bean id="tourService" class="com.deliverytouroptimizer.service.impl.VehicleServiceImpl">
+    <bean id="vehicleService" class="com.deliverytouroptimizer.service.impl.VehicleServiceImpl">
+        <constructor-arg ref="vehicleRepository"/>
+        <constructor-arg ref="vehicleMapper"/>
+        <constructor-arg ref="transactionTemplate"/>
+    </bean>
+
+    <bean id="tourMapper" class="com.deliverytouroptimizer.mapper.TourMapper"/>
+
+    <bean id="tourService" class="com.deliverytouroptimizer.service.impl.TourServiceImpl">
         <constructor-arg ref="tourRepository"/>
+        <constructor-arg ref="vehicleRepository"/>
+        <constructor-arg ref="warehouseRepository"/>
+        <constructor-arg ref="deliveryRepository"/>
+        <constructor-arg ref="tourMapper"/>
         <constructor-arg ref="transactionTemplate"/>
     </bean>
 </beans>
