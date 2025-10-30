@@ -1,6 +1,7 @@
 package com.deliverytouroptimizer.model;
 
 import com.deliverytouroptimizer.model.enums.VehicleType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,7 @@ public class Vehicle {
     @Min(value = 1, message = "Max deliveries must be at least 1")
     private int maxDeliveries;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference("vehicle-tours")
     private List<Tour> tours;
 }

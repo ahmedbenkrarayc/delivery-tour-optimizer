@@ -1,6 +1,7 @@
 package com.deliverytouroptimizer.model;
 
 import com.deliverytouroptimizer.model.enums.DeliveryStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -11,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Delivery {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,7 +41,8 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tour_id")
+    @JsonBackReference("tour-deliveries")
     private Tour tour;
 }

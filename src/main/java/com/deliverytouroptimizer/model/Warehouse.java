@@ -1,5 +1,6 @@
 package com.deliverytouroptimizer.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ public class Warehouse {
     @NotNull(message = "Warehouse closing time is required")
     private LocalTime closingTime;
 
-    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference("warehouse-tours")
     private List<Tour> tours;
 }
